@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SumTwo
+{
+    public class Class1
+    {
+        public static void Main(string[] args)
+        {
+
+            int[] nums = { 1, 2, 4, 7 };
+            int target = 9;
+            //method TwoSumDictionary is called giving array and target value
+            //constraint  : 2 <= nums.length <= 104
+            //constraint : -109 <= target <= 109
+            if (target <= Math.Pow(10, 9) && target >= Math.Pow(-10, 9) )
+            {
+
+                int[] result = TwoSumDictionary(nums, target);
+                Console.WriteLine("in Main function");
+                Console.WriteLine(string.Join("" , result));
+
+            }
+            else
+            {
+                Console.WriteLine("target not in constraint");
+            }
+            //time complexity T(n) where n are number of inputs
+            //space complexity = S(n) where n are number of inputs
+
+        }
+        public static int[] TwoSumDictionary(int[] nums, int target)
+        {
+            //this is the anotherway of solving the problem
+            //constraints : -109 <= nums[i] <= 109
+
+            //Declarations
+            int arrayLength = nums.Length;
+            Dictionary<int, int> resultDictionary = new();
+
+            //Validations
+            if (nums == null || arrayLength < 2 || arrayLength > Math.Pow(10, 9))
+            {
+                return Array.Empty<int>();
+            }
+
+            //Logic
+            for (int i = 0; i < arrayLength; i++)
+            {
+                if (nums[i] <= Math.Pow(10, 9) && nums[i] >= Math.Pow(-10, 9))
+                {
+                    int secondNumber = target - nums[i];
+                    if (resultDictionary.TryGetValue(secondNumber, out int index))
+                    {
+                        return new[] { index, i };
+                    }
+
+                    resultDictionary.Add(nums[i], i);
+                
+                }
+            }
+            return Array.Empty<int>(); 
+        }
+    }
+}
